@@ -1,0 +1,91 @@
+name: 自动更新 Sitemap
+
+# 每天北京时间凌晨3点自动运行（UTC 19:00）
+# 也支持手动触发
+on:
+  schedule:
+    - cron: '0 19 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 生成 sitemap.xml
+        run: |
+          python3 << 'EOF'
+          import os
+          import re
+          from datetime import datetime
+          from xml.etree.ElementTree import Element, SubElement, tostring
+          from xml.dom import minidom
+
+          SITE_URL = "https://和悦新宸.cn"
+          today = datetime.now().strftime('%Y-%m-%d')
+
+          urlset = Element('urlset')
+          urlset.set('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
+
+          # 主页
+          url = SubElement(urlset, 'url')
+          SubElement(url, 'loc').text = f"{SITE_URL}/"
+          SubElement(url, 'lastmod').text = today
+          SubElement(url, 'changefreq').text = 'daily'
+          SubElement(url, 'priority').text = '1.0'
+
+          # 扫描文章
+          articles = []
+          news_dir = 'news'
+          if os.path.isdir(news_dir):
+              for fname in sorted(os.listdir(news_dir)):
+                  if fname.startswith('article-') and fname.endswith('.html'):
+                      fpath = os.path.join(news_dir, fname)
+                      with open(fpath, 'r', encoding='utf-8') as f:
+                          content = f.read()
+                      # 提取日期
+                      m = re.search(r'"datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})"', content)
+                      date = m.group(1) if m else today
+                      articles.append((fname, date))
+
+          # 按日期倒序
+          articles.sort(key=lambda x: x[1], reverse=True)
+
+          for fname, date in articles:
+              url = SubElement(urlset, 'url')
+              SubElement(url, 'loc').text = f"{SITE_URL}/news/{fname}"
+              SubElement(url, 'lastmod').text = date
+              SubElement(url, 'changefreq').text = 'monthly'
+              SubElement(url, 'priority').text = '0.8'
+
+          # 格式化XML
+          rough = tostring(urlset, encoding='unicode')
+          pretty = minidom.parseString(rough).toprettyxml(indent='  ', encoding='UTF-8')
+          lines = [line for line in pretty.decode('utf-8').split('\n') if line.strip()]
+          result = '<?xml version="1.0" encoding="UTF-8"?>\n' + '\n'.join(lines[1:]) + '\n'
+
+          with open('sitemap.xml', 'w', encoding='utf-8') as f:
+              f.write(result)
+
+          print(f"sitemap 已生成，包含 {len(articles)} 篇文章")
+          EOF
+
+      - name: 提交并推送（如有变化）
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          if git diff --cached --quiet; then
+            echo "sitemap 无变化，无需提交"
+          else
+            git commit -m "auto: sitemap自动更新 $(date +'%Y-%m-%d')"
+            git push
+            echo "sitemap 已更新并推送"
+          fi
