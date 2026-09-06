@@ -1694,17 +1694,17 @@ img {
       <div class="form-row">
         <div class="form-group">
           <label>您的姓名</label>
-          <input type="text" placeholder="请输入姓名" required>
+          <input type="text" id="ppName" placeholder="请输入姓名" required>
         </div>
         <div class="form-group">
           <label>联系电话</label>
-          <input type="tel" placeholder="请输入手机号" required>
+          <input type="tel" id="ppPhone" placeholder="请输入手机号" required>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>意向户型</label>
-          <select>
+          <select id="ppHouse">
             <option>76m² 两室两厅</option>
             <option>97m² 三室两厅</option>
             <option>106m² 三室两厅</option>
@@ -1713,14 +1713,14 @@ img {
         </div>
         <div class="form-group">
           <label>预约时间</label>
-          <input type="date">
+          <input type="date" id="ppDate">
         </div>
       </div>
       <div class="form-group">
         <label>备注信息</label>
-        <textarea rows="3" placeholder="如有其他需求请在此说明（puslpusl 客户优先接待）"></textarea>
+        <textarea rows="3" id="ppRemark" placeholder="如有其他需求请在此说明（puslpusl 客户优先接待）"></textarea>
       </div>
-      <button type="submit" class="form-submit puslpusl-submit">puslpusl 立即预约</button>
+      <button type="submit" class="form-submit puslpusl-submit" id="ppSubmitBtn">puslpusl 立即预约</button>
       <p class="form-tip">提交后 puslpusl 专属顾问将在 30 分钟内与您联系</p>
     </form>
 
@@ -1931,10 +1931,59 @@ function sendChat() {
 }
 
 // 表单提交
+// PushPlus 配置
+const PUSHPLUS_TOKEN = '37af69b210224201a5c4ff5a973d36c1';
+
 function handleSubmit(e) {
   e.preventDefault();
-  alert('puslpusl 预约提交成功！专属顾问将在30分钟内致电 17652523536 与您联系。');
-  e.target.reset();
+  const btn = document.getElementById('ppSubmitBtn');
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = '提交中...';
+
+  const name = document.getElementById('ppName').value.trim();
+  const phone = document.getElementById('ppPhone').value.trim();
+  const house = document.getElementById('ppHouse').value;
+  const date = document.getElementById('ppDate').value || '未指定';
+  const remark = document.getElementById('ppRemark').value.trim() || '无';
+
+  const content =
+    '<h3 style="color:#9B1B1B;">和悦新宸 - 新客户预约</h3>' +
+    '<p><strong>姓名：</strong>' + name + '</p>' +
+    '<p><strong>电话：</strong>' + phone + '</p>' +
+    '<p><strong>意向户型：</strong>' + house + '</p>' +
+    '<p><strong>预约时间：</strong>' + date + '</p>' +
+    '<p><strong>备注：</strong>' + remark + '</p>' +
+    '<p style="color:#888;font-size:12px;margin-top:16px;">来源：和悦新宸官网 puslpusl 预约通道</p>';
+
+  fetch('https://www.pushplus.plus/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      token: PUSHPLUS_TOKEN,
+      title: '和悦新宸新预约 - ' + name,
+      content: content,
+      template: 'html'
+    })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.code === 200) {
+      alert('预约提交成功！puslpusl 专属顾问将在30分钟内与您联系。');
+      e.target.reset();
+    } else {
+      alert('提交成功，但推送通知异常：' + (data.msg || '未知错误') + '\n请直接拨打 17652523536 联系我们。');
+      e.target.reset();
+    }
+  })
+  .catch(function(err) {
+    alert('预约已登记！网络推送暂时不可用，请直接拨打 17652523536 确认。');
+    e.target.reset();
+  })
+  .finally(function() {
+    btn.disabled = false;
+    btn.textContent = originalText;
+  });
 }
 
 // 滚动渐入动画
