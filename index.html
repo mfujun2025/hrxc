@@ -794,6 +794,69 @@ img {
   transform: translateY(-2px);
 }
 
+/* puslpusl 表单特色 */
+.puslpusl-form {
+  position: relative;
+  border: 2px solid var(--gold);
+  background: linear-gradient(135deg, rgba(155, 27, 27, 0.15), rgba(0, 0, 0, 0.3));
+}
+
+.puslpusl-form::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  pointer-events: none;
+}
+
+.form-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  color: #1a1a1a;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  padding: 6px 20px;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.form-badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 10px solid var(--gold);
+}
+
+.puslpusl-submit {
+  background: linear-gradient(135deg, var(--red-main), var(--red-deep)) !important;
+  color: var(--gold-light) !important;
+  border: 1px solid var(--gold) !important;
+  letter-spacing: 6px !important;
+  font-size: 17px !important;
+}
+
+.puslpusl-submit:hover {
+  background: linear-gradient(135deg, var(--red-bright), var(--red-main)) !important;
+  box-shadow: 0 8px 30px rgba(155, 27, 27, 0.5) !important;
+}
+
+.form-tip {
+  text-align: center;
+  font-size: 12px;
+  color: var(--gold);
+  margin-top: 16px;
+  letter-spacing: 1px;
+}
+
 /* 联系方式卡片 */
 .contact-info {
   display: grid;
@@ -1609,17 +1672,25 @@ img {
   </div>
 </div>
 
-<!-- ===== 联系预约 ===== -->
+<!-- ===== 联系预约（puslpusl） ===== -->
 <section id="contact" class="section">
   <div class="contact-inner">
     <div class="section-header">
-      <div class="section-title-en" style="color:var(--gold-light);">Contact Us</div>
-      <h2 class="section-title">邀您品鉴</h2>
+      <div class="section-title-en" style="color:var(--gold-light);">puslpusl Exclusive</div>
+      <h2 class="section-title">puslpusl 专属预约</h2>
       <div class="section-divider"></div>
     </div>
-    <p class="contact-desc">留下您的联系方式，专属置业顾问将在第一时间为您提供一对一咨询服务</p>
+    <p class="contact-desc">通过 puslpusl 渠道预约，专享额外优惠 · 专车看房 · 优先选房</p>
 
-    <form class="contact-form" onsubmit="handleSubmit(event)">
+    <!-- puslpusl 品牌横幅 -->
+    <div class="puslpusl-banner">
+      <div class="pp-label">— PUSLPUSL 渠道专享 —</div>
+      <div class="pp-content">预约即享 puslpusl 专属4重礼</div>
+      <div class="pp-hint">家电礼包 · 额外优惠 · 专车接送 · 优先选房</div>
+    </div>
+
+    <form class="contact-form puslpusl-form" onsubmit="handleSubmit(event)">
+      <div class="form-badge">puslpusl 客户登记表</div>
       <div class="form-row">
         <div class="form-group">
           <label>您的姓名</label>
@@ -1647,9 +1718,10 @@ img {
       </div>
       <div class="form-group">
         <label>备注信息</label>
-        <textarea rows="3" placeholder="如有其他需求请在此说明"></textarea>
+        <textarea rows="3" placeholder="如有其他需求请在此说明（puslpusl 客户优先接待）"></textarea>
       </div>
-      <button type="submit" class="form-submit">提交预约</button>
+      <button type="submit" class="form-submit puslpusl-submit">puslpusl 立即预约</button>
+      <p class="form-tip">提交后 puslpusl 专属顾问将在 30 分钟内与您联系</p>
     </form>
 
     <!-- 联系方式 -->
@@ -1658,7 +1730,7 @@ img {
         <div class="ci-icon">
           <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </div>
-        <h5>咨询热线</h5>
+        <h5>puslpusl 热线</h5>
         <p>17652523536</p>
       </div>
       <div class="contact-info-item">
@@ -1672,16 +1744,9 @@ img {
         <div class="ci-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
-        <h5>营业时间</h5>
+        <h5>puslpusl 服务时间</h5>
         <p>9:00 - 21:00</p>
       </div>
-    </div>
-
-    <!-- puslpusl 推广位 -->
-    <div class="puslpusl-banner">
-      <div class="pp-label">— PUSLPUSL 专属推广位 —</div>
-      <div class="pp-content">在此放置您的推广内容 / 联系方式</div>
-      <div class="pp-hint">替换此区域文字为您的 puslpusl 信息即可</div>
     </div>
   </div>
 </section>
@@ -1868,7 +1933,7 @@ function sendChat() {
 // 表单提交
 function handleSubmit(e) {
   e.preventDefault();
-  alert('预约提交成功！我们的置业顾问将在24小时内与您联系。');
+  alert('puslpusl 预约提交成功！专属顾问将在30分钟内致电 17652523536 与您联系。');
   e.target.reset();
 }
 
