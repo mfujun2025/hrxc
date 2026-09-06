@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  网站地图 sitemap.xml
-  部署前请将所有 https://example.com/ 替换为你的实际域名
+  网站地图 sitemap.xml - 和悦新宸.cn
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://和悦新宸.cn/</loc>
     <lastmod>2026-09-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://example.com/#about</loc>
+    <loc>https://和悦新宸.cn/#about</loc>
     <lastmod>2026-09-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://example.com/#features</loc>
+    <loc>https://和悦新宸.cn/#features</loc>
     <lastmod>2026-09-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://example.com/#params</loc>
+    <loc>https://和悦新宸.cn/#params</loc>
     <lastmod>2026-09-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://example.com/#gallery</loc>
+    <loc>https://和悦新宸.cn/#gallery</loc>
     <lastmod>2026-09-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://example.com/#news</loc>
+    <loc>https://和悦新宸.cn/#news</loc>
     <lastmod>2026-09-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://example.com/#contact</loc>
+    <loc>https://和悦新宸.cn/#contact</loc>
     <lastmod>2026-09-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

@@ -1,5 +1,4 @@
-# robots.txt
-# 部署前请将 https://example.com/ 替换为你的实际域名
+# robots.txt - 和悦新宸.cn
 
 User-agent: *
 Allow: /
@@ -8,4 +7,4 @@ Allow: /
 # Disallow: /*#
 
 # 网站地图
-Sitemap: https://example.com/sitemap.xml
+Sitemap: https://和悦新宸.cn/sitemap.xml
