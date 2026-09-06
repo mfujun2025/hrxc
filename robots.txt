@@ -1,0 +1,11 @@
+# robots.txt
+# 部署前请将 https://example.com/ 替换为你的实际域名
+
+User-agent: *
+Allow: /
+
+# 禁止抓取无意义的锚点重复内容（可选，按需注释）
+# Disallow: /*#
+
+# 网站地图
+Sitemap: https://example.com/sitemap.xml
