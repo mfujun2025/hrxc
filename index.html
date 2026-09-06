@@ -1252,128 +1252,6 @@ img {
   transform: translateX(4px);
 }
 
-/* 文章详情模态框 */
-.article-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.article-modal.active {
-  display: flex;
-}
-
-.article-modal-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(4px);
-}
-
-.article-modal-content {
-  position: relative;
-  background: var(--bg-card);
-  border: 1px solid var(--border-gold);
-  max-width: 780px;
-  width: 100%;
-  max-height: 85vh;
-  overflow-y: auto;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-}
-
-.article-close {
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 28px;
-  cursor: pointer;
-  z-index: 10;
-  line-height: 1;
-  transition: color 0.3s;
-}
-
-.article-close:hover {
-  color: var(--gold-light);
-}
-
-.article-modal-body {
-  padding: 48px 48px 40px;
-}
-
-.article-modal-body .article-date {
-  font-size: 13px;
-  color: var(--gold);
-  letter-spacing: 2px;
-  margin-bottom: 16px;
-}
-
-.article-modal-body h2 {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.5;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(201, 169, 110, 0.2);
-}
-
-.article-modal-body .article-content {
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 2;
-}
-
-.article-modal-body .article-content p {
-  margin-bottom: 18px;
-  text-align: justify;
-}
-
-.article-modal-body .article-content h3 {
-  font-size: 18px;
-  color: var(--gold-light);
-  margin: 28px 0 14px;
-}
-
-.article-modal-body .article-content strong {
-  color: var(--text-primary);
-}
-
-.article-modal-body .article-cta {
-  margin-top: 36px;
-  padding: 24px;
-  background: rgba(155, 27, 27, 0.15);
-  border-left: 3px solid var(--gold);
-  text-align: center;
-}
-
-.article-modal-body .article-cta p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-bottom: 12px;
-}
-
-.article-modal-body .article-cta .phone {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--gold-light);
-  letter-spacing: 2px;
-}
-
 /* ===== 响应式 ===== */
 @media (max-width: 968px) {
   .navbar-inner {
@@ -1400,12 +1278,6 @@ img {
   }
   .news-grid {
     grid-template-columns: 1fr;
-  }
-  .article-modal-body {
-    padding: 32px 24px;
-  }
-  .article-modal-body h2 {
-    font-size: 22px;
   }
   .contact-info {
     grid-template-columns: 1fr;
@@ -1661,17 +1533,6 @@ img {
   </div>
 </section>
 
-<!-- ===== 文章详情模态框 ===== -->
-<div class="article-modal" id="articleModal">
-  <div class="article-modal-overlay" onclick="closeArticle()"></div>
-  <div class="article-modal-content">
-    <button class="article-close" onclick="closeArticle()">×</button>
-    <div class="article-modal-body" id="articleModalBody">
-      <!-- 文章内容由 JS 动态渲染 -->
-    </div>
-  </div>
-</div>
-
 <!-- ===== 联系预约（puslpusl） ===== -->
 <section id="contact" class="section">
   <div class="contact-inner">
@@ -1808,64 +1669,22 @@ img {
 </footer>
 
 <script>
-// ===== 文章数据（在此添加/修改文章）=====
+// ===== 文章卡片数据（正文在 news/article-X.html 独立页面）=====
 const articles = [
-  {
-    id: 1,
-    date: '2026-09-01',
-    title: '浏河和悦新宸现房热销中，总价80万起入驻环沪品质住区',
-    excerpt: '浏河和悦新宸目前全现房销售，建筑面积约76-119m²瞰景高层与舒适洋房同步在售，精装修交付，即买即住。项目位于太仓浏河核心板块，一站虹桥，学府旁，滨河而建，是环沪置业的高性价比之选。',
-    image: 'https://aka.doubaocdn.com/s/qFUEudMWTV',
-    content: '<p>浏河和悦新宸自面世以来，凭借优越的区位条件、过硬的产品品质和亲民的价格，持续受到环沪购房者的关注。目前项目已全部交付，现房实景呈现，购房者可实地考察小区环境、户型格局和装修标准，所见即所得。</p><h3>现房销售，即买即住</h3><p>不同于期房的漫长等待，浏河和悦新宸全部为现房销售，购房后即可办理入住手续。小区内园林景观、滨河步道、儿童乐园、会客厅等配套均已建成投入使用，居住氛围成熟。</p><h3>产品覆盖刚需改善</h3><p>项目产品涵盖建筑面积约<strong>76-97m²瞰景高层</strong>和约<strong>106-119m²舒适洋房</strong>，从两室到四室，满足不同家庭的居住需求。所有户型均采用大横厅、大阳台设计，采光通风俱佳，得房率高达82%。</p><h3>精装修交付标准</h3><p>全屋精装修交付，标配中央空调、新风系统、指纹密码锁，厨卫采用知名品牌，拎包即可入住，省去装修烦恼。</p>'
-  },
-  {
-    id: 2,
-    date: '2026-08-20',
-    title: '太仓浏河板块价值解析：一站虹桥的环沪宜居新高地',
-    excerpt: '浏河与上海嘉定北、宝山仅一桥之隔，是太仓距离上海最近的板块。随着沪苏通铁路、北沿江高铁的建设推进，浏河的交通便利性持续提升，正成为环沪置业的热门区域。',
-    image: 'https://aka.doubaocdn.com/s/vOZoZVYVWI',
-    content: '<p>近年来，环沪置业成为越来越多上海刚需和投资客的选择。在众多环沪板块中，太仓浏河凭借独特的区位优势和宜居的生活环境，脱颖而出。</p><h3>区位优势：一桥之隔入上海</h3><p>浏河位于太仓市东南部，与上海嘉定区、宝山区仅一桥之隔，是太仓距离上海市区最近的板块。从浏河出发，经沪太公路可快速直达上海市区，自驾出行十分便利。</p><h3>交通升级：高铁时代来临</h3><p>沪苏通铁路已建成通车，北沿江高铁正在建设中，未来浏河及周边的铁路交通将更加便捷。同时，区域内公交班次密集，可直达上海地铁7号线美兰湖站，公共交通出行也十分方便。</p><h3>配套成熟：生活便利度高</h3><p>浏河板块经过多年发展，生活配套已十分成熟。商业街、老街商圈满足日常购物需求；明德小学、明德初中提供优质教育资源；上海九院浏河分院、瑞金医院太仓分院（在建）保障居民健康；还有浏河古镇、湿地公园等休闲去处。</p><h3>价格洼地：性价比突出</h3><p>相比上海郊区动辄三四万的房价，浏河板块目前均价约10000元/m²，总价80万起即可购置精装两房，价格优势明显，是环沪置业的高性价比选择。</p>'
-  },
-  {
-    id: 3,
-    date: '2026-08-05',
-    title: '和悦新宸户型品鉴：119m²四室洋房，大横厅连通式阳台设计',
-    excerpt: '和悦新宸119m²四室两厅洋房户型，采用大横厅设计，客厅与餐厅一体化，连通式观景阳台，主卧套房带独立卫浴，是改善型家庭的理想之选。本文带您详细品鉴这个明星户型。',
-    image: 'https://aka.doubaocdn.com/s/vOZoZVYVWI',
-    content: '<p>在和悦新宸的产品体系中，建筑面积约119m²的四室两厅洋房户型备受改善型购房者青睐。这个户型在空间利用、功能分区和居住舒适度上都表现出色。</p><h3>大横厅设计，空间感十足</h3><p>户型采用时下流行的<strong>大横厅设计</strong>，客厅与餐厅一体化布局，面宽达到约5.8米，整个公共活动区域宽敞明亮，无论是家庭日常活动还是招待亲友，都显得游刃有余。</p><h3>连通式阳台，拓展生活空间</h3><p>客厅连接<strong>连通式观景阳台</strong>，阳台面宽与横厅一致，不仅采光通风效果极佳，还可作为休闲茶座、花艺空间或健身区域使用，大大拓展了生活空间。</p><h3>主卧套房，私密尊享</h3><p>主卧采用套房设计，配备独立卫浴和衣帽间，保障主人的私密性和舒适度。主卧朝南，带大尺度飘窗，清晨阳光洒满房间，居住体验佳。</p><h3>四室布局，满足全周期居住</h3><p>四个房间的布局可灵活使用：主卧、儿童房、老人房各居其位，第四个房间可作为书房、客房或兴趣室使用，满足家庭全周期居住需求。</p>'
-  },
-  {
-    id: 4,
-    date: '2026-09-05',
-    title: '浏河和悦新宸教育配套全解析：明德学校旁的学府住区',
-    excerpt: '浏河和悦新宸周边教育资源丰富，明德小学、明德初中等优质学校环伺，从幼儿园到初中一站式教育覆盖，是名副其实的学府旁住区。本文详细解析和悦新宸周边的教育配套。',
-    image: 'https://aka.doubaocdn.com/s/qFUEudMWTV',
-    content: '<p>古有"孟母三迁"，今有"择校而居"。教育配套是很多家庭买房时的首要考量因素。浏河和悦新宸位于太仓浏河核心板块，周边教育资源丰富，从幼儿园到初中一站式覆盖，为业主子女提供优质的教育环境。</p><h3>明德小学：浏河板块优质公立小学</h3><p>明德小学是浏河镇的核心公立小学，办学历史悠久，师资力量雄厚，教学质量在太仓市乡镇小学中名列前茅。学校注重学生全面发展，开设丰富的社团活动和特色课程，距离浏河和悦新宸仅约1公里，步行即可到达。</p><h3>明德初中：直升优质教育资源</h3><p>明德初中是浏河板块的主要初级中学，与明德小学形成连贯的九年义务教育体系。学校拥有现代化的教学设施和经验丰富的教师团队，近年来中考成绩稳步提升，为学生升入高中打下坚实基础。</p><h3>幼儿园资源：多所选择覆盖</h3><p>除了中小学，浏河和悦新宸周边还有多所幼儿园，包括浏河中心幼儿园、民办优质幼儿园等，满足不同家庭的学前教育需求。家长可根据自身情况灵活选择。</p><h3>学府旁住区的价值优势</h3><p>选择浏河和悦新宸，不仅是选择一套房子，更是为孩子选择一个优质的成长环境。学校近在咫尺，孩子上学不用长途奔波，家长接送也更加省心。同时，学府旁的房产在二手房市场上也更具保值增值能力，是自住投资两相宜的选择。</p><p>目前浏河和悦新宸现房销售中，建筑面积约76-119m²精装户型，总价80万起，欢迎来电咨询 17652523536 了解详情。</p>'
-  },
-  {
-    id: 5,
-    date: '2026-09-03',
-    title: '浏河和悦新宸精装修标准揭秘：中央空调+新风系统+品牌厨卫',
-    excerpt: '浏河和悦新宸全部精装修交付，标配中央空调、新风系统、指纹密码锁，厨卫采用知名品牌，真正实现拎包入住。本文为您详细揭秘和悦新宸的精装标准和用料细节。',
-    image: 'https://aka.doubaocdn.com/s/vOZoZVYVWI',
-    content: '<p>在当前的房地产市场中，精装修房越来越受到购房者的青睐，省去了自己装修的时间和精力。浏河和悦新宸作为板块内的品质标杆项目，全部采用精装修交付，精装标准高于同区域同类项目。下面为您详细揭秘。</p><h3>中央空调：四季恒温舒适体验</h3><p>浏河和悦新宸全屋标配<strong>中央空调系统</strong>，采用知名品牌，制冷制热效果均匀，噪音低，能耗省。不同于传统分体空调，中央空调隐藏在吊顶中，不占用墙面空间，整体美观度更高。每个房间可独立控制温度，满足不同家庭成员的舒适需求。</p><h3>新风系统：全天候清新空气</h3><p>项目配备<strong>新风系统</strong>，可24小时不间断置换室内空气，有效过滤PM2.5、甲醛等有害物质，即使在雾霾天也能保持室内空气清新。对于有老人和小孩的家庭来说，新风系统是健康生活的重要保障。</p><h3>指纹密码锁：安全便捷入户</h3><p>入户门采用<strong>指纹密码锁</strong>，支持指纹、密码、钥匙多种开锁方式，告别忘带钥匙的烦恼。锁具采用知名品牌，安全性能高，为家庭安全保驾护航。</p><h3>品牌厨卫：品质生活细节</h3><p>厨房配备品牌橱柜、抽油烟机、燃气灶，台面采用易清洁的石英石材质，水槽选用大单槽设计，使用更加方便。卫生间配备品牌洁具、淋浴花洒、浴室柜，防水工艺严格把控，避免后期渗漏问题。</p><h3>精装现房：所见即所得</h3><p>浏河和悦新宸目前为现房销售，所有精装标准均可实地考察，购房者可以亲手触摸材质、亲身感受空间，真正做到所见即所得，避免期房精装"货不对板"的风险。</p><p>想了解更多精装细节，欢迎拨打 17652523536 预约实地看房。</p>'
-  },
-  {
-    id: 6,
-    date: '2026-08-28',
-    title: '上海上班族环沪买房实录：为什么最终选择浏河和悦新宸',
-    excerpt: '越来越多在上海工作的年轻人选择环沪置业。本文采访了一位在上海宝山上班、最终购买浏河和悦新宸的业主，听听他选择和悦新宸的真实原因和居住体验。',
-    image: 'https://aka.doubaocdn.com/s/qFUEudMWTV',
-    content: '<p>上海房价高企，刚需购房者压力巨大。近年来，"工作在上海，居住在环沪"成为越来越多年轻人的选择。在众多环沪板块中，太仓浏河凭借距离近、价格低、配套成熟等优势，成为热门之选。本文采访了一位真实业主，听听他的故事。</p><h3>购房者背景：上海宝山上班，预算有限</h3><p>李先生今年32岁，在上海宝山一家制造业企业担任技术主管，工作稳定但收入有限。看了上海周边多个板块后，最终选择了浏河和悦新宸。"上海郊区的房子动辄三四百万，首付都凑不齐，"李先生说，"浏河这边总价80万起，首付十几万就能搞定，压力小很多。"</p><h3>为什么是浏河：一桥之隔，通勤方便</h3><p>李先生对比了嘉善、昆山、太仓等多个环沪板块，最终选择浏河的核心原因是距离。"浏河和上海宝山就隔一条河，我开车上班走沪太公路，不堵车的话40分钟就能到公司，比住在上海一些远郊区还方便。"此外，浏河到上海地铁7号线美兰湖站有直达公交，公共交通出行也有保障。</p><h3>为什么是和悦新宸：现房精装，品质放心</h3><p>在浏河的多个楼盘中，李先生最终选择了浏河和悦新宸。"首先是现房，买了就能住，不用等两年；其次是精装修，中央空调、新风都有，拎包入住省了很多事；再就是小区环境好，临河而建，绿化率高，住起来舒服。"</p><h3>入住体验：生活便利，幸福感提升</h3><p>入住半年后，李先生对自己的选择很满意。"小区旁边就是商业街，买菜吃饭都方便；明德学校就在附近，以后孩子上学也不用愁；周末还能去浏河古镇逛逛，生活节奏比上海慢，幸福感提升了不少。"</p><h3>给环沪购房者的建议</h3><p>李先生建议："环沪买房一定要看现房，期房风险大；一定要实地考察通勤时间，地图上的距离和实际开车是两回事；还有就是要看周边配套，不能只看价格。浏河和悦新宸这几点都满足，有需要的朋友可以打 17652523536 咨询。"</p>'
-  }
+  { id: 1, date: '2026-09-01', title: '浏河和悦新宸现房热销中，总价80万起入驻环沪品质住区', excerpt: '浏河和悦新宸全现房销售，建筑面积约76-119m²瞰景高层与舒适洋房，精装修交付即买即住，一站虹桥学府旁。', image: 'https://aka.doubaocdn.com/s/qFUEudMWTV', url: 'news/article-1.html' },
+  { id: 2, date: '2026-09-05', title: '浏河和悦新宸教育配套全解析：明德学校旁的学府住区', excerpt: '浏河和悦新宸周边教育资源丰富，明德小学、明德初中等优质学校环伺，从幼儿园到初中一站式教育覆盖。', image: 'https://aka.doubaocdn.com/s/qFUEudMWTV', url: 'news/article-4.html' },
+  { id: 3, date: '2026-09-03', title: '浏河和悦新宸精装修标准揭秘：中央空调+新风系统+品牌厨卫', excerpt: '浏河和悦新宸全部精装修交付，标配中央空调、新风系统、指纹密码锁，厨卫采用知名品牌，真正实现拎包入住。', image: 'https://aka.doubaocdn.com/s/vOZoZVYVWI', url: 'news/article-5.html' },
+  { id: 4, date: '2026-08-28', title: '上海上班族环沪买房实录：为什么最终选择浏河和悦新宸', excerpt: '采访一位在上海宝山上班、最终购买浏河和悦新宸的业主，听听他选择和悦新宸的真实原因和居住体验。', image: 'https://aka.doubaocdn.com/s/qFUEudMWTV', url: 'news/article-6.html' },
+  { id: 5, date: '2026-08-20', title: '太仓浏河板块价值解析：一站虹桥的环沪宜居新高地', excerpt: '浏河与上海嘉定北、宝山仅一桥之隔，沪苏通铁路、北沿江高铁建设推进，正成为环沪置业的热门区域。', image: 'https://aka.doubaocdn.com/s/vOZoZVYVWI', url: 'news/article-2.html' },
+  { id: 6, date: '2026-08-05', title: '和悦新宸户型品鉴：119m²四室洋房，大横厅连通式阳台设计', excerpt: '和悦新宸119m²四室两厅洋房户型，大横厅设计，连通式观景阳台，主卧套房带独立卫浴，改善型家庭理想之选。', image: 'https://aka.doubaocdn.com/s/vOZoZVYVWI', url: 'news/article-3.html' }
 ];
 
-// 渲染文章列表
+// 渲染文章卡片列表（点击跳转到独立文章页）
 function renderNews() {
   const grid = document.getElementById('newsGrid');
   if (!grid) return;
   grid.innerHTML = articles.map(function(a) {
-    return '<div class="news-card" onclick="openArticle(' + a.id + ')">' +
+    return '<a class="news-card" href="' + a.url + '">' +
       '<img class="news-card-image" src="' + a.image + '" alt="' + a.title + '">' +
       '<div class="news-card-body">' +
         '<div class="news-card-date">' + a.date + '</div>' +
@@ -1873,37 +1692,9 @@ function renderNews() {
         '<p class="news-card-excerpt">' + a.excerpt + '</p>' +
         '<span class="news-card-more">阅读全文</span>' +
       '</div>' +
-    '</div>';
+    '</a>';
   }).join('');
 }
-
-// 打开文章详情
-function openArticle(id) {
-  const article = articles.find(function(a) { return a.id === id; });
-  if (!article) return;
-  const body = document.getElementById('articleModalBody');
-  body.innerHTML =
-    '<div class="article-date">' + article.date + '</div>' +
-    '<h2>' + article.title + '</h2>' +
-    '<div class="article-content">' + article.content + '</div>' +
-    '<div class="article-cta">' +
-      '<p>了解更多项目详情，欢迎来电咨询</p>' +
-      '<div class="phone">17652523536</div>' +
-    '</div>';
-  document.getElementById('articleModal').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-// 关闭文章详情
-function closeArticle() {
-  document.getElementById('articleModal').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-// ESC 关闭模态框
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeArticle();
-});
 
 // 页面加载完成后渲染文章
 document.addEventListener('DOMContentLoaded', renderNews);
